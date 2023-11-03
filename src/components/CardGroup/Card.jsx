@@ -1,28 +1,25 @@
 import React from "react";
 
-function Card(props) {
-  const deleteHandler = () => {
-    props.deleteTodoData(props.cardData.id);
-  };
-
-  const toggleDoneHandler = (boolean) => {
-    props.changeTodoDone(props.cardData.id, boolean);
-  };
-
+function Card({ todoData, onDelete, onToggle }) {
   return (
     <div className="card">
-      <h2 className="card__title">{props.cardData.title}</h2>
-      <p className="card__content">{props.cardData.content}</p>
+      <h2 className="card__title">{todoData.title}</h2>
+      <p className="card__content">{todoData.content}</p>
       <div className="card__btn-group">
-        <button className="btn btn-outline-red" onClick={deleteHandler}>
+        <button
+          className="btn btn-outline-red"
+          onClick={() => {
+            onDelete(todoData.id);
+          }}
+        >
           삭제하기
         </button>
 
-        {props.cardData.isDone ? (
+        {todoData.isDone ? (
           <button
             className="btn btn-outline-green"
             onClick={() => {
-              toggleDoneHandler(false);
+              onToggle(todoData.id, false);
             }}
           >
             취소
@@ -31,7 +28,7 @@ function Card(props) {
           <button
             className="btn btn-outline-green"
             onClick={() => {
-              toggleDoneHandler(true);
+              onToggle(todoData.id, true);
             }}
           >
             완료

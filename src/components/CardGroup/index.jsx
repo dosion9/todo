@@ -1,19 +1,15 @@
 import React from "react";
 import Card from "./Card";
 
-function CardGroup(props) {
+function CardGroup({ todoGroupTitle, todoList, onDelete, onToggle }) {
   return (
     <div className="container">
-      <h2 className="mb-1">{props.title}</h2>
+      <h2 className="mb-1">{todoGroupTitle}</h2>
       <ul className="card-group">
-        {props.todoList.map((n, i) => {
-          return n.state === props.title ? (
+        {todoList.map((n, i) => {
+          return n.state === todoGroupTitle ? (
             <li key={`card-${i}`}>
-              <Card
-                cardData={n}
-                changeTodoDone={props.changeTodoDone}
-                deleteTodoData={props.deleteTodoData}
-              ></Card>
+              <Card todoData={n} onDelete={onDelete} onToggle={onToggle}></Card>
             </li>
           ) : null;
         })}

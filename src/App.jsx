@@ -1,30 +1,24 @@
 import Header from "./components/Header";
 import InputGroup from "./components/InputGroup";
 import CardGroup from "./components/CardGroup";
-import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getLocalTodo, setLocalTodo } from "./script/saveLocal";
 
 function App() {
-  const cardGroup = ["Working", "Done"];
+  const todoGroup = ["Working", "Done"];
   const [todoList, setTodoList] = useState([]);
-  const [todoTitle, setTodoTitle] = useState("");
-  const [todoContent, setTodoContent] = useState("");
-
-  const deleteTodoData = (id) => {
+  const handleDelete = (id) => {
     const copy = todoList.filter((n) => {
       return n.id !== id;
     });
-
     setTodoList(copy);
   };
-
-  const changeTodoDone = (id) => {
+  const handleToggle = (id) => {
     const copy = [...todoList];
     const index = copy.findIndex((n) => {
       return n.id === id;
     });
     copy[index].toggleDone();
-
     setTodoList(copy);
   };
 
@@ -32,27 +26,20 @@ function App() {
     <>
       <Header></Header>
       <section>
-        <InputGroup
-          todoTitle={todoTitle}
-          setTodoTitle={setTodoTitle}
-          todoContent={todoContent}
-          setTodoContent={setTodoContent}
-          todoList={todoList}
-          setTodoList={setTodoList}
-        ></InputGroup>
+        <InputGroup todoList={todoList} setTodoList={setTodoList}></InputGroup>
       </section>
-      {cardGroup.map((n) => {
+      {todoGroup.map((n) => {
         return (
-          <CardGroup
-            title={n}
-            key={`cardGroup-${n}`}
-            todoList={todoList}
-            deleteTodoData={deleteTodoData}
-            changeTodoDone={changeTodoDone}
-          ></CardGroup>
+          <section key={`cardGroup-${n}`}>
+            <CardGroup
+              todoGroupTitle={n}
+              todoList={todoList}
+              onDelete={handleDelete}
+              onToggle={handleToggle}
+            ></CardGroup>
+          </section>
         );
       })}
-      <section></section>
     </>
   );
 }

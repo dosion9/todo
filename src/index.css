@@ -83,6 +83,11 @@ body {
   justify-content: space-between;
 }
 
+.flex-center-Y {
+  display: flex;
+  align-items: center;
+}
+
 .mb-1 {
   margin-bottom: 1rem;
 }

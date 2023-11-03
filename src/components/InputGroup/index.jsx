@@ -1,43 +1,40 @@
 import React from "react";
-import createTodo from "../../script/todoData";
+import { useState } from "react";
+import createTodo from "../../script/todo";
 
-function InputGroup(props) {
-  const changeTitleHandler = (e) => {
-    props.setTodoTitle(e.target.value);
-  };
+function InputGroup({ todoList, setTodoList }) {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-  const changeTodoContentHandler = (e) => {
-    props.setTodoContent(e.target.value);
-  };
-
-  const addTodoHandler = () => {
-    const copy = [...props.todoList];
-    const newTodo = createTodo(props.todoTitle, props.todoContent);
+  const handleTitleChange = (e) => setTitle(e.target.value);
+  const handleContentChange = (e) => setContent(e.target.value);
+  const handleAdd = () => {
+    const copy = [...todoList];
+    const newTodo = createTodo(title, content);
     copy.push(newTodo);
-    props.setTodoList(copy);
-    props.setTodoTitle("");
-    props.setTodoContent("");
+    setTodoList(copy);
+    setTitle("");
+    setContent("");
   };
-
   return (
-    <div className="container border bg-gray row flex-between">
-      <div className="row" style={{ alignItems: "center" }}>
-        <label htmlFor="todoTitle">제목</label>
+    <div className="container border bg-gray row flex-between ">
+      <div className="row flex-center-Y">
+        <label htmlFor="todo__title">제목</label>
         <input
           type="text"
-          id="todoTitle"
-          value={props.todoTitle}
-          onChange={changeTitleHandler}
+          id="todo__title"
+          value={title}
+          onChange={handleTitleChange}
         />
-        <label htmlFor="todoContent">내용</label>
+        <label htmlFor="todo__content">내용</label>
         <input
           type="text"
-          id="todoContent"
-          value={props.todoContent}
-          onChange={changeTodoContentHandler}
+          id="todo__content"
+          value={content}
+          onChange={handleContentChange}
         />
       </div>
-      <button className="btn btn-green" onClick={addTodoHandler}>
+      <button className="btn btn-green" onClick={handleAdd}>
         추가하기
       </button>
     </div>

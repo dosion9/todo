@@ -16,9 +16,6 @@ class Todo {
   changeState() {
     this.state === "Working" ? (this.state = "Done") : (this.state = "Working");
   }
-  test() {
-    console.log("인스턴스 살아있다!");
-  }
 }
 
 function createTodo(title, content) {
