@@ -1,8 +1,7 @@
 import Header from "./components/Header";
 import InputGroup from "./components/InputGroup";
 import CardGroup from "./components/CardGroup";
-import { useEffect, useState } from "react";
-import { getLocalTodo, setLocalTodo } from "./script/saveLocal";
+import { useState } from "react";
 
 function App() {
   const todoGroup = ["Working", "Done"];
