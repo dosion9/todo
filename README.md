@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Todo List
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## App.jsx의 구조
 
-In the project directory, you can run:
+- Header
+- InputGroup
+- CardGroup [반복]
+  - Card [반복]
 
-### `npm start`
+### Header 컴포넌트
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 해당 Todo List의 헤더
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### InputGroup 컴포넌트
 
-### `npm test`
+- 새로 추가할 Todo List의 제목, 내용, 추가하기 UI가 있는 컴포넌트
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  #### ※ input을 컴포넌트로 분리하지 않은 이유
 
-### `npm run build`
+  - 해당 프로젝트에서 사용하는 input이 2개뿐이다.
+  - <code>props</code> 를 전달한 컴포넌트가 하나 더 늘어나므로 컴포넌트로 분리하지 않았다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### CardGroup 컴포넌트 [반복]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Todo의 `완료 | 미완료`상태에 따라 Card 컴포넌트들을 구분하여 랜더링하는 컴포넌트
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Card 컴포넌트 [반복]
 
-### `npm run eject`
+- Todo의 제목, 내용을 보여주는 컴포넌트
+- 해당 Todo의 <code>isDone</code> 상태에 따라 버튼이 `취소 | 완료`로 변경
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 생각해보기
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### JSX 문법이란?
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- <code>JS</code> + <code>XML</code> 로 <code>JS</code> 파일에서 <code>HTML</code> 작성 가능
+- <code>JSX</code>는 하나의 Element에 감싸진 구조
+- <code>JS</code>의 값은 중괄호로 표시
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 어플리케이션의 상태를 관리하기 위해 사용한 리액트의 기능
 
-## Learn More
+- 해당 어플리케이션의 컴포넌트의 상태 값들을 관리하는 <code>useState</code> 사용
+- 부모 컴포넌트에서 자식 컴포넌트로 상태 값들을 전달하기 위해 <code>props</code> 사용
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 어플리케이션의 컴포넌트 간 상태 값들의 공유 방법
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- <code>props</code>를 사용하여 부모 컴포넌트에서 자식컴포넌트로 상태 값들을 공유하였다.
 
-### Code Splitting
+### 기능 구현을 위해 불변성 유지가 필요한 부분
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- 리액트의 리랜더링을 위해 <code>useState</code>를 사용할 때, 해당 값을 변경하는 mutable 한 방법이 아닌, 새로운 객체를 생성하여 값을 변경하고, 그 객체를 state로 지정하는 immutable 한 방법이 필요하다.
+- 해당 어플리케이션에서는 todoList와 title, content를 <code>useState</code>로 관리하고 있기 때문에 이러한 방법을 사용했다.
 
-### Analyzing the Bundle Size
+### 컴포넌트로 분리의 이점
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 반복되는 UI에 대해서 재사용이 가능하다.
